@@ -1,0 +1,13 @@
+
+<%- include('home') %>
+<div class="container text-center">
+    <div class="col-xs-16">
+        <h1>Trending Words</h1>
+<li>
+<% arr.forEach(val => { %>
+ <ul><%= val.toUpperCase() %></ul>
+  <% }) %>
+</li>
+
+</div>
+</div>
