@@ -4,7 +4,9 @@ body{
     min-height: 100vh;
   }
   
-  
+#suggestions{
+    max-height: 250px;
+  }
   input[type="text"], select{ 
       outline: none;
   }

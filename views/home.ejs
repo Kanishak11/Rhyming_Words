@@ -3,7 +3,8 @@
         <div class="container text-center" id="searchBox">
           <h1>Search Rhyming Words</h1>
           <div class="form col-xs-12">   
-              <input class="col-xs-9" id="searchBar" type="text" name="name" placeholder="search" value=<%= name %> >
+              <input class="col-xs-9" id="searchBar"  type="text" name="name" placeholder="search" list="suggestions" value=<%= name %>  >
+              <datalist id="suggestions" class="datalist">   </datalist>
               <button type="submit" id ="btn" class="btn btn-info"><span class="glyphicon glyphicon-search" data-toggle="tooltip" title="Search"></span></button>
             </div>
           </div>           
@@ -12,10 +13,26 @@
     <span class="visually-hidden"></span>
   </div>
 
-
 <script defer> 
 document.getElementById("btn").addEventListener("click", ()=> {
-    document.getElementById('loader').style.display="block"
+document.getElementById('loader').style.display="block"
 });
+
+let input = document.querySelector('input');
+let select = document.querySelector('#suggestions')
+input.addEventListener('input', updateValue);
+function updateValue(e) {
+    let url= `https://api.datamuse.com/sug?s=${e.target.value}`
+    fetchAsync(url)
+    console.log(e.target.value);
+}
+async function fetchAsync (url) {
+    let response = await fetch(url);
+    let datas = await response.json();
+    let sets=[...datas].splice(0,3)
+    const option = sets.map(set => `<option> ${set.word} </option>`).join('\n')
+    select.innerHTML= option;
+    console.log(sets)
+} 
 
 </script>

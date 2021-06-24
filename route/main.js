@@ -10,7 +10,7 @@ router.get('/words',(req,res) => {
 })
 
 router.post('/words' , async (req,res) => {
-    const name = req.body.name
+    const name = req.body.name.toUpperCase()
     check(name)
     const getWords = async () => {
         try {
@@ -26,12 +26,12 @@ router.post('/words' , async (req,res) => {
         if(arr.length >10) arr=arr.slice(0,10)
         let message = "Results for";
         if(arr.length === 0){
-          message = "no similar word"
+          message = "No Rhyming Words found for"
         }
         res.render('showWords' ,{arr:arr,message:`${message} ${name}` ,name:name} )
     }catch(err){
         console.log(err)  
-        res.render('home',{arr:[],message:"error",name:""})
+        res.render('home',{arr:[],message:"Error",name:"Error"})
     }
       } 
       word()
